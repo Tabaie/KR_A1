@@ -1,0 +1,63 @@
+#include "Record.h"
+
+
+#define NUM_TARGET_CATEGORIES 29
+#define MIN_TARGET_CATEGORY 1
+#define MAX_TARGET_CATEGORY (NUM_TARGET_CATEGORIES + MIN_TARGET_CATEGORY -1 )
+#define TARGET_CATEGORY_ARRAYINDEX(i) (i- MIN_TARGET_CATEGORY)
+
+#define FLOAT_INFINITY 900000000000000.0
+
+typedef struct TreeNode
+{
+	AttrIndex dividingAttribute;
+	struct TreeNode *parent;
+	float divisionPoint;
+	Record *data;
+} TreeNode;
+
+#define TOTAL_3
+
+//float Entropy(Record *data);
+
+float ResultingEntropy(TreeNode *t);
+
+float AttributeDivisionPoint(TreeNode *t)
+{
+	int n;
+	float xbar;
+	float ybar;
+	float xy;
+	float xsq;
+	Record *r;
+	
+	n=0;
+	xbar=ybar=xy=xsq=.0;
+	
+	for (r= t->data->next; r; r= r->next)
+	{
+		
+		n++;
+	}
+}
+
+AttrIndex ChooseDividingAttribute(TreeNode *t)
+{
+	int i;
+	int bestI= -3;
+	float bestE= FLOAT_INFINITY;
+	float entropy;
+	for (i=Sex; i<= ShellWeight; i++)
+	{
+		t->dividingAttribute= i;
+		t->divisionPoint= AttributeDivisionPoint(t);
+		entropy= ResultingEntropy(t);
+		if (entropy < bestE)
+		{
+			bestE=entropy;
+			bestI= i;
+		}
+	}
+	
+	return i;
+}
